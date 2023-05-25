@@ -10,16 +10,22 @@ using System.Windows.Forms;
 
 namespace DriveToSurvive
 {
-    public partial class TrackSelectScreen : UserControl
+    public partial class GameScreen : UserControl
     {
-        public TrackSelectScreen()
+        public GameScreen()
         {
             InitializeComponent();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void gameTimer_Tick(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new GameScreen());
+
+            Refresh();
+        }
+
+        private void GameScreen_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.FillRectangle();
         }
     }
 }

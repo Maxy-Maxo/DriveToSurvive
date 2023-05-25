@@ -31,6 +31,7 @@
             this.track1 = new System.Windows.Forms.Label();
             this.track2 = new System.Windows.Forms.Label();
             this.track3 = new System.Windows.Forms.Label();
+            this.startButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // track1
@@ -66,16 +67,34 @@
             this.track3.Text = "3";
             this.track3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
+            // startButton
+            // 
+            this.startButton.BackColor = System.Drawing.Color.GreenYellow;
+            this.startButton.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.startButton.FlatAppearance.BorderSize = 5;
+            this.startButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.startButton.Font = new System.Drawing.Font("Leelawadee", 24F, System.Drawing.FontStyle.Bold);
+            this.startButton.Location = new System.Drawing.Point(610, 510);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(180, 80);
+            this.startButton.TabIndex = 3;
+            this.startButton.Text = "Start Race";
+            this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            // 
             // TrackSelectScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.track3);
             this.Controls.Add(this.track2);
             this.Controls.Add(this.track1);
             this.Font = new System.Drawing.Font("Leelawadee", 14.25F);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "TrackSelectScreen";
             this.Size = new System.Drawing.Size(800, 600);
             this.ResumeLayout(false);
@@ -87,5 +106,6 @@
         private System.Windows.Forms.Label track1;
         private System.Windows.Forms.Label track2;
         private System.Windows.Forms.Label track3;
+        private System.Windows.Forms.Button startButton;
     }
 }
