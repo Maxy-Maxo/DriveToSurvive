@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DriveToSurvive
 {
     public class Car
     {
-        int x, y, direction;
-        int z, speed, trackLocation, placeNumber = 0;
+        public int z, speed, steer, trackLocation, placeNumber = 0;
+        public double xSpeed, ySpeed, direction, x, y = 0;
+        public Point[] points = { new Point(0, 0), new Point(30, 0), new Point(0, 30), new Point(60, 60) };
 
-        public Car(int _x, int _y, int _dirction)
+        public Car(double _x, double _y, double _dirction)
         {
             x = _x;
             y = _y;
@@ -20,7 +22,70 @@ namespace DriveToSurvive
 
         public void Move()
         {
+            if (speed != 0)
+            {
+                direction += steer;
+            }
 
+            if (direction >= 360)
+            {
+                direction -= 360;
+            }
+            if (direction < 0)
+            {
+                direction += 360;
+            }
+            SetSpeed(direction);
+            direction = GetDirection(xSpeed, ySpeed);
+
+            x += xSpeed * speed;
+            y -= ySpeed * speed;
+        }
+
+        public static double GetDirection(double xSpeed, double ySpeed)
+        {
+            double direction;
+
+            if (ySpeed == 0)
+            {
+                if (xSpeed < 0)
+                {
+                    return -90;
+                }
+                else
+                {
+                    return 90;
+                }
+            }
+            else
+            {
+                direction = Math.Atan2(xSpeed, ySpeed) * 180 / Math.PI;
+
+                if (xSpeed <= 0 && ySpeed > 0)
+                {
+                    direction += 360;
+                }
+
+                //if (ySpeed < 0)
+                //{
+                //    direction += 180;
+                //}
+
+                return direction;
+            }
+        }
+
+        public void SetSpeed()
+        {
+            double direction = GetDirection(xSpeed, ySpeed);
+            xSpeed = Math.Sin(direction * Math.PI / 180);
+            ySpeed = Math.Cos(direction * Math.PI / 180);
+        }
+
+        public void SetSpeed(double direction)
+        {
+            xSpeed = Math.Sin(direction * Math.PI / 180);
+            ySpeed = Math.Cos(direction * Math.PI / 180);
         }
     }
 }
