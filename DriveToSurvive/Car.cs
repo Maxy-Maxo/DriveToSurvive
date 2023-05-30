@@ -11,7 +11,8 @@ namespace DriveToSurvive
     {
         public int z, speed, steer, trackLocation, placeNumber = 0;
         public double xSpeed, ySpeed, direction, x, y = 0;
-        public Point[] points = { new Point(0, 0), new Point(30, 0), new Point(0, 30), new Point(60, 60) };
+        public int width = 30;
+        public int height = 50;
 
         public Car(double _x, double _y, double _dirction)
         {
@@ -22,9 +23,13 @@ namespace DriveToSurvive
 
         public void Move()
         {
-            if (speed != 0)
+            if (speed > 0)
             {
                 direction += steer;
+            }
+            else if (speed < 0)
+            {
+                direction -= steer;
             }
 
             if (direction >= 360)
@@ -38,8 +43,8 @@ namespace DriveToSurvive
             SetSpeed(direction);
             direction = GetDirection(xSpeed, ySpeed);
 
-            x += xSpeed * speed;
-            y -= ySpeed * speed;
+            x += xSpeed * speed / 10;
+            y -= ySpeed * speed / 10;
         }
 
         public static double GetDirection(double xSpeed, double ySpeed)
