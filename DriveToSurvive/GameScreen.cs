@@ -13,6 +13,7 @@ namespace DriveToSurvive
     public partial class GameScreen : UserControl
     {
         SolidBrush brush = new SolidBrush(Color.White);
+        Pen pen = new Pen(Color.Red, 2);
         public static List<Car> cars = new List<Car>();
         public static List<Trackpoint> trackpoints = new List<Trackpoint>();
         int mouseX, mouseY;
@@ -80,6 +81,12 @@ namespace DriveToSurvive
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
             trackpoints.Add(new Trackpoint(mouseX, mouseY, 90, Convert.ToInt16(sizeInput.Text)));
+            if (trackpoints.Count > 1)
+            {
+                trackpoints[trackpoints.Count - 2].direction = Form1.GetDirection(trackpoints[trackpoints.Count - 1].x - trackpoints[trackpoints.Count - 2].x, trackpoints[trackpoints.Count - 1].y - trackpoints[trackpoints.Count - 2].y);
+                trackpoints[trackpoints.Count - 1].direction = Form1.GetDirection(trackpoints[0].x - trackpoints[trackpoints.Count - 1].x, trackpoints[0].y - trackpoints[trackpoints.Count - 1].y);
+
+            }
         }
 
         private void GameScreen_MouseMove(object sender, MouseEventArgs e)
@@ -90,6 +97,12 @@ namespace DriveToSurvive
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            foreach (Trackpoint p in trackpoints)
+            {
+                e.Graphics.FillEllipse(brush, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+                e.Graphics.DrawLine(pen, p.x, p.y, (float)(p.x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2), (float)(p.y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2));
+            }
+
             foreach (Car c in cars)
             {
                 //e.Graphics.TranslateTransform(c.width / 2 + (int)c.x, c.width / 2 + (int)c.y);
@@ -97,11 +110,6 @@ namespace DriveToSurvive
                 e.Graphics.FillRectangle(brush, Convert.ToInt16(c.x), Convert.ToInt16(c.y), 30, 30);
                 //e.Graphics.FillRectangle(brush, 10, 10, 30, 50);
                 //e.Graphics.DrawImage();
-            }
-
-            foreach (Trackpoint p in trackpoints)
-            {
-                e.Graphics.FillEllipse(brush, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
             }
         }
 

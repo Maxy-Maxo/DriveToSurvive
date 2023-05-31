@@ -39,5 +39,61 @@ namespace DriveToSurvive
             f.Controls.Add(next);
             next.Focus();
         }
+
+        public static double GetDirection(double xSpeed, double ySpeed)
+        {
+            double direction;
+
+            if (ySpeed == 0)
+            {
+                if (xSpeed < 0)
+                {
+                    return -90;
+                }
+                else
+                {
+                    return 90;
+                }
+            }
+            else
+            {
+                direction = Math.Atan2(xSpeed, ySpeed) * 180 / Math.PI;
+
+                if (xSpeed <= 0 && ySpeed > 0)
+                {
+                    direction += 360;
+                }
+
+                return direction;
+            }
+        }
+
+        public static double GetDirection(int xSpeed, int ySpeed)
+        {
+            double direction;
+
+            if (ySpeed == 0)
+            {
+                if (xSpeed < 0)
+                {
+                    return -90;
+                }
+                else
+                {
+                    return 90;
+                }
+            }
+            else
+            {
+                direction = Math.Atan2(xSpeed, ySpeed) * 180 / Math.PI;
+
+                if (xSpeed <= 0 && ySpeed > 0)
+                {
+                    direction += 360;
+                }
+
+                return direction;
+            }
+        }
     }
 }

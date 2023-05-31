@@ -8,8 +8,9 @@ namespace DriveToSurvive
 {
     public class Trackpoint
     {
-        public int x, y, direction, size;
-        public Trackpoint(int _x, int _y, int _direction, int _size)
+        public int x, y, size;
+        public double direction;
+        public Trackpoint(int _x, int _y, double _direction, int _size)
         {
             x = _x;
             y = _y;
