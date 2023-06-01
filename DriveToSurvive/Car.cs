@@ -25,14 +25,7 @@ namespace DriveToSurvive
 
         public void Move()
         {
-            if (speed > 0)
-            {
-                direction += steer;
-            }
-            else if (speed < 0)
-            {
-                direction -= steer;
-            }
+            direction += steer * speed / 50;
 
             if (direction >= 360)
             {
