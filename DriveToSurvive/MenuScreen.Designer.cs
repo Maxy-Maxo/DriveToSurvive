@@ -40,10 +40,10 @@
             this.playButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.playButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.playButton.Font = new System.Drawing.Font("Leelawadee", 30F, System.Drawing.FontStyle.Bold);
-            this.playButton.Location = new System.Drawing.Point(310, 245);
+            this.playButton.Font = new System.Drawing.Font("Squada One", 35F, System.Drawing.FontStyle.Bold);
+            this.playButton.Location = new System.Drawing.Point(309, 245);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(180, 80);
+            this.playButton.Size = new System.Drawing.Size(181, 80);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "Play";
             this.playButton.UseVisualStyleBackColor = false;
@@ -57,7 +57,7 @@
             this.exitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Goldenrod;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.exitButton.Font = new System.Drawing.Font("Leelawadee", 25F, System.Drawing.FontStyle.Bold);
+            this.exitButton.Font = new System.Drawing.Font("Squada One", 28F, System.Drawing.FontStyle.Bold);
             this.exitButton.Location = new System.Drawing.Point(330, 519);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(140, 55);
@@ -68,13 +68,12 @@
             // 
             // MenuScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.ForestGreen;
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
-            this.Font = new System.Drawing.Font("Leelawadee", 14.25F);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Font = new System.Drawing.Font("Squada One", 13.8F);
+            this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(800, 600);
             this.ResumeLayout(false);

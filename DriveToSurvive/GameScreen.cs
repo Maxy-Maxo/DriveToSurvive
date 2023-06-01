@@ -87,6 +87,14 @@ namespace DriveToSurvive
                 trackpoints[trackpoints.Count - 1].direction = Form1.GetDirection(trackpoints[0].x - trackpoints[trackpoints.Count - 1].x, trackpoints[0].y - trackpoints[trackpoints.Count - 1].y);
 
             }
+            if (sizeInput.Enabled == true)
+            {
+                sizeInput.Enabled = false;
+            }
+            else
+            {
+                sizeInput.Enabled = true;
+            }
         }
 
         private void GameScreen_MouseMove(object sender, MouseEventArgs e)

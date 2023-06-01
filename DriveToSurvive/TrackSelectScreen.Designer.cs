@@ -37,6 +37,7 @@
             // track1
             // 
             this.track1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.track1.Font = new System.Drawing.Font("Squada One", 14.25F);
             this.track1.ForeColor = System.Drawing.Color.White;
             this.track1.Location = new System.Drawing.Point(35, 104);
             this.track1.Name = "track1";
@@ -48,6 +49,7 @@
             // track2
             // 
             this.track2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.track2.Font = new System.Drawing.Font("Squada One", 14.25F);
             this.track2.ForeColor = System.Drawing.Color.White;
             this.track2.Location = new System.Drawing.Point(205, 104);
             this.track2.Name = "track2";
@@ -59,6 +61,7 @@
             // track3
             // 
             this.track3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.track3.Font = new System.Drawing.Font("Squada One", 14.25F);
             this.track3.ForeColor = System.Drawing.Color.White;
             this.track3.Location = new System.Drawing.Point(375, 104);
             this.track3.Name = "track3";
@@ -75,7 +78,7 @@
             this.startButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.startButton.Font = new System.Drawing.Font("Leelawadee", 24F, System.Drawing.FontStyle.Bold);
+            this.startButton.Font = new System.Drawing.Font("Squada One", 22F, System.Drawing.FontStyle.Bold);
             this.startButton.Location = new System.Drawing.Point(610, 510);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(180, 80);
@@ -86,14 +89,13 @@
             // 
             // TrackSelectScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.track3);
             this.Controls.Add(this.track2);
             this.Controls.Add(this.track1);
-            this.Font = new System.Drawing.Font("Leelawadee", 14.25F);
+            this.Font = new System.Drawing.Font("Squada One", 14.25F);
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "TrackSelectScreen";
             this.Size = new System.Drawing.Size(800, 600);

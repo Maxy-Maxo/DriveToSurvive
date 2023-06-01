@@ -13,12 +13,14 @@ namespace DriveToSurvive
         public double xSpeed, ySpeed, direction, x, y = 0;
         public int width = 30;
         public int height = 50;
+        public List<Point[]> points = new List<Point[]>();
 
         public Car(double _x, double _y, double _dirction)
         {
             x = _x;
             y = _y;
             direction = _dirction;
+            points.Add(new Point[] { new Point(0, 0), new Point(0, 0) });
         }
 
         public void Move()

@@ -41,21 +41,22 @@
             // 
             // sizeInput
             // 
-            this.sizeInput.Location = new System.Drawing.Point(700, 30);
+            this.sizeInput.Location = new System.Drawing.Point(706, 56);
+            this.sizeInput.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.sizeInput.Name = "sizeInput";
-            this.sizeInput.Size = new System.Drawing.Size(100, 30);
+            this.sizeInput.Size = new System.Drawing.Size(73, 32);
             this.sizeInput.TabIndex = 0;
             this.sizeInput.Text = "100";
             // 
             // GameScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.sizeInput);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Leelawadee", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(0, 8, 0, 8);
+            this.Font = new System.Drawing.Font("Squada One", 13.8F);
+            this.Margin = new System.Windows.Forms.Padding(0, 7, 0, 7);
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(800, 600);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
