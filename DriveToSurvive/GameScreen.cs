@@ -113,11 +113,10 @@ namespace DriveToSurvive
 
             foreach (Car c in cars)
             {
-                //e.Graphics.TranslateTransform(c.width / 2 + (int)c.x, c.width / 2 + (int)c.y);
-                //e.Graphics.RotateTransform(Convert.ToInt32(c.direction));
-                e.Graphics.FillRectangle(brush, Convert.ToInt16(c.x), Convert.ToInt16(c.y), 30, 30);
-                //e.Graphics.FillRectangle(brush, 10, 10, 30, 50);
-                //e.Graphics.DrawImage();
+                e.Graphics.TranslateTransform((float)(c.width / 2 + c.x - c.width / 2), (float)(c.height / 2 + c.y - c.height / 2));
+                e.Graphics.RotateTransform((float)c.direction);
+                e.Graphics.FillRectangle(brush, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
+                e.Graphics.ResetTransform();
             }
         }
 
