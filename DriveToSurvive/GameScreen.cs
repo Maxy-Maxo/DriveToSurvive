@@ -115,7 +115,7 @@ namespace DriveToSurvive
             {
                 e.Graphics.TranslateTransform((float)(c.width / 2 + c.x - c.width / 2), (float)(c.height / 2 + c.y - c.height / 2));
                 e.Graphics.RotateTransform((float)c.direction);
-                e.Graphics.FillRectangle(brush, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
+                e.Graphics.DrawImage(Properties.Resources.blueCar, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
                 e.Graphics.ResetTransform();
             }
         }
