@@ -15,10 +15,13 @@ namespace DriveToSurvive
         SolidBrush brush = new SolidBrush(Color.White);
         SolidBrush trackColour = new SolidBrush(Color.FromArgb(50, 50, 50));
         Pen pen = new Pen(Color.Red, 2);
+        Font gameFont = new Font("Squada One", 20, FontStyle.Regular);
+
         public static List<Car> cars = new List<Car>();
         public static List<Trackpoint> trackpoints = new List<Trackpoint>();
         int mouseX, mouseY;
         double gameX, gameY;
+        int size = 100;
 
         bool upArrow, downArrow, leftArrow, rightArrow;
 
@@ -85,20 +88,12 @@ namespace DriveToSurvive
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            trackpoints.Add(new Trackpoint(mouseX - (int)gameX, mouseY - (int)gameY, 90, Convert.ToInt16(sizeInput.Text)));
+            trackpoints.Add(new Trackpoint(mouseX - (int)gameX, mouseY - (int)gameY, 90, Convert.ToInt16(size)));
             if (trackpoints.Count > 1)
             {
                 trackpoints[trackpoints.Count - 2].direction = Form1.GetDirection(trackpoints[trackpoints.Count - 1].x - trackpoints[trackpoints.Count - 2].x, trackpoints[trackpoints.Count - 1].y - trackpoints[trackpoints.Count - 2].y);
                 trackpoints[trackpoints.Count - 1].direction = Form1.GetDirection(trackpoints[0].x - trackpoints[trackpoints.Count - 1].x, trackpoints[0].y - trackpoints[trackpoints.Count - 1].y);
 
-            }
-            if (sizeInput.Enabled == true)
-            {
-                sizeInput.Enabled = false;
-            }
-            else
-            {
-                sizeInput.Enabled = true;
             }
         }
 
@@ -133,7 +128,13 @@ namespace DriveToSurvive
                 e.Graphics.RotateTransform((float)c.direction);
                 e.Graphics.DrawImage(Properties.Resources.blueCar, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
                 e.Graphics.ResetTransform();
+                if (c == cars[0] && c.trackLocation != 0)
+                {
+                    e.Graphics.DrawLine(pen, Width / 2, Height / 2, trackpoints[c.trackLocation].x + (int)gameX, trackpoints[c.trackLocation].y + (int)gameY);
+                }
             }
+
+            e.Graphics.DrawString($"{size}", gameFont, brush, 50, 50);
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -151,6 +152,15 @@ namespace DriveToSurvive
                     break;
                 case Keys.Right:
                     rightArrow = true;
+                    break;
+                case Keys.W:
+                    size++;
+                    break;
+                case Keys.S:
+                    if (size > 0)
+                    {
+                        size--;
+                    }
                     break;
             }
         }

@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            this.sizeInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -39,21 +38,11 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
-            // sizeInput
-            // 
-            this.sizeInput.Location = new System.Drawing.Point(706, 56);
-            this.sizeInput.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.sizeInput.Name = "sizeInput";
-            this.sizeInput.Size = new System.Drawing.Size(73, 27);
-            this.sizeInput.TabIndex = 0;
-            this.sizeInput.Text = "100";
-            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGreen;
-            this.Controls.Add(this.sizeInput);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Squada One", 13.8F);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -66,13 +55,11 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GameScreen_MouseMove);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
-        private System.Windows.Forms.TextBox sizeInput;
     }
 }

@@ -9,23 +9,21 @@ namespace DriveToSurvive
 {
     public class Car
     {
-        public int z, speed, steer, trackLocation, placeNumber = 0;
-        public double xSpeed, ySpeed, direction, x, y = 0;
+        public int z, speed, steer, trackLocation, distToTrack, placeNumber = 0;
+        public double xSpeed, ySpeed, direction, x, y, prevXSpeed, prevYSpeed = 0;
         public int width = 30;
         public int height = 50;
-        public List<Point[]> points = new List<Point[]>();
 
         public Car(double _x, double _y, double _dirction)
         {
             x = _x;
             y = _y;
             direction = _dirction;
-            points.Add(new Point[] { new Point(0, 0), new Point(0, 0) });
         }
 
         public void Move()
         {
-            direction += steer * speed / 50;
+            direction += steer * speed / 75;
 
             if (direction >= 360)
             {
@@ -35,11 +33,28 @@ namespace DriveToSurvive
             {
                 direction += 360;
             }
+            prevXSpeed = xSpeed * 10;
+            prevYSpeed = ySpeed * 10;
             SetSpeed(direction);
             direction = Form1.GetDirection(xSpeed, ySpeed);
 
-            x += xSpeed * speed / 10;
-            y -= ySpeed * speed / 10;
+            x += (xSpeed * speed) / 20;
+            y -= (ySpeed * speed) / 20;
+
+            distToTrack = 0;
+            for (int i = 0; i < GameScreen.trackpoints.Count; i++)
+            {
+                if (Math.Sqrt((GameScreen.trackpoints[i].x - x) * (GameScreen.trackpoints[i].x - x) + (GameScreen.trackpoints[i].y - y) * (GameScreen.trackpoints[i].y - y)) < distToTrack || distToTrack == 0)
+                {
+                    distToTrack = (int)Math.Sqrt((GameScreen.trackpoints[i].x - x) * (GameScreen.trackpoints[i].x - x) + (GameScreen.trackpoints[i].y - y) * (GameScreen.trackpoints[i].y - y));
+
+                    if (distToTrack == 0)
+                    {
+                        distToTrack = 1;
+                    }
+                    trackLocation = i;
+                }
+            }
         }
 
         public void SetSpeed()
