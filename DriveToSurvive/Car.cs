@@ -43,12 +43,16 @@ namespace DriveToSurvive
             x += (xSpeed * speed) / 20;
             y -= (ySpeed * speed) / 20;
 
+            //double n = Math.Sqrt(((GameScreen.trackpoints[30].x - x) * (GameScreen.trackpoints[30].x - x)) + ((GameScreen.trackpoints[30].y - y) * (GameScreen.trackpoints[30].y - y)));
+
             distToTrack = 0;
+            double distance;
             for (int i = 0; i < GameScreen.trackpoints.Count; i++)
             {
-                if (Math.Sqrt((GameScreen.trackpoints[i].x - x) * (GameScreen.trackpoints[i].x - x) + (GameScreen.trackpoints[i].y - y) * (GameScreen.trackpoints[i].y - y)) < distToTrack || distToTrack == 0)
+                distance = Math.Sqrt(((GameScreen.trackpoints[i].x - x) * (GameScreen.trackpoints[i].x - x)) + ((GameScreen.trackpoints[i].y - y) * (GameScreen.trackpoints[i].y - y)));
+                if (distance < distToTrack || distToTrack == 0)
                 {
-                    distToTrack = (int)Math.Sqrt((GameScreen.trackpoints[i].x - x) * (GameScreen.trackpoints[i].x - x) + (GameScreen.trackpoints[i].y - y) * (GameScreen.trackpoints[i].y - y));
+                    distToTrack = (int)distance;
 
                     if (distToTrack == 0)
                     {

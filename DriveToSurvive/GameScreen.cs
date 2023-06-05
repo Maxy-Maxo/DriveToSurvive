@@ -88,7 +88,7 @@ namespace DriveToSurvive
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            trackpoints.Add(new Trackpoint(mouseX - (int)gameX, mouseY - (int)gameY, 90, Convert.ToInt16(size)));
+            trackpoints.Add(new Trackpoint(mouseX - (int)gameX, mouseY - (int)gameY, 90, Convert.ToInt16(size), trackpoints.Count));
             if (trackpoints.Count > 1)
             {
                 trackpoints[trackpoints.Count - 2].direction = Form1.GetDirection(trackpoints[trackpoints.Count - 1].x - trackpoints[trackpoints.Count - 2].x, trackpoints[trackpoints.Count - 1].y - trackpoints[trackpoints.Count - 2].y);
@@ -114,6 +114,10 @@ namespace DriveToSurvive
                 e.Graphics.FillEllipse(trackColour, p.x - p.size / 2 + (int)gameX, p.y - p.size / 2 + (int)gameY, p.size, p.size);
                 //e.Graphics.DrawLine(pen, p.x, p.y, (float)(p.x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2), (float)(p.y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2));
             }
+            foreach (Trackpoint p in trackpoints)
+            {
+                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, p.x + (int)gameX, p.y + (int)gameY);
+            }
 
             foreach (Car c in cars)
             {
@@ -128,9 +132,12 @@ namespace DriveToSurvive
                 e.Graphics.RotateTransform((float)c.direction);
                 e.Graphics.DrawImage(c.image, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
                 e.Graphics.ResetTransform();
+
                 if (c == cars[0] && c.trackLocation != 0)
                 {
                     e.Graphics.DrawLine(pen, Width / 2, Height / 2, trackpoints[c.trackLocation].x + (int)gameX, trackpoints[c.trackLocation].y + (int)gameY);
+                    e.Graphics.DrawString($"{c.trackLocation}", gameFont, brush, 50, 75);
+                    e.Graphics.DrawString($"{c.distToTrack}", gameFont, brush, 50, 100);
                 }
             }
 
