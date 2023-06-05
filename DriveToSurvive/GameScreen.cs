@@ -28,8 +28,8 @@ namespace DriveToSurvive
         public GameScreen()
         {
             InitializeComponent();
-            cars.Add(new Car(Width / 2, Height / 2, 90));
-            cars.Add(new Car(Width / 2, Height / 2, 0));
+            cars.Add(new Car(Width / 2, Height / 2, 90, Properties.Resources.tealCar));
+            cars.Add(new Car(Width / 2, Height / 2, 0, Properties.Resources.yellowCar));
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -126,7 +126,7 @@ namespace DriveToSurvive
                     e.Graphics.TranslateTransform(c.width / 2 + (float)(c.x + gameX) - c.width / 2, c.height / 2 + (float)(c.y + gameY) - c.height / 2);
                 }
                 e.Graphics.RotateTransform((float)c.direction);
-                e.Graphics.DrawImage(Properties.Resources.blueCar, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
+                e.Graphics.DrawImage(c.image, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
                 e.Graphics.ResetTransform();
                 if (c == cars[0] && c.trackLocation != 0)
                 {

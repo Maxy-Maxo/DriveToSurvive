@@ -111,13 +111,43 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fog_1f32b-fe0f.png" />
+    <None Include="Resources\Edge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whiteCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\greyCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pinkCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\purpleCar.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blueCar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Edge.png" />
+    <None Include="Resources\tealCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\greenCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\limeCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellowCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\orangeCar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redCar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

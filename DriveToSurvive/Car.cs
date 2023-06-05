@@ -13,12 +13,14 @@ namespace DriveToSurvive
         public double xSpeed, ySpeed, direction, x, y, prevXSpeed, prevYSpeed = 0;
         public int width = 30;
         public int height = 50;
+        public Bitmap image;
 
-        public Car(double _x, double _y, double _dirction)
+        public Car(double _x, double _y, double _dirction, Bitmap _image)
         {
             x = _x;
             y = _y;
             direction = _dirction;
+            image = _image;
         }
 
         public void Move()

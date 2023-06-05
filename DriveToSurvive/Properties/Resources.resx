@@ -118,13 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="blackCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blackCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="blueCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blueCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Edge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fog_1f32b-fe0f.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="greenCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greenCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="greyCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\greyCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="limeCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\limeCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="orangeCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\orangeCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pinkCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pinkCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="purpleCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\purpleCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="redCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\redCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tealCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tealCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="whiteCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\whiteCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="yellowCar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yellowCar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
