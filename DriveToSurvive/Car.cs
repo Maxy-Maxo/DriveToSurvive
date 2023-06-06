@@ -21,11 +21,12 @@ namespace DriveToSurvive
             y = _y;
             direction = _dirction;
             image = _image;
+            z = 1;
         }
 
         public void Move()
         {
-            direction += steer * speed / 75;
+            direction += steer * speed / 150;
 
             if (direction >= 360)
             {
@@ -40,8 +41,8 @@ namespace DriveToSurvive
             SetSpeed(direction);
             direction = Form1.GetDirection(xSpeed, ySpeed);
 
-            x += (xSpeed * speed) / 20;
-            y -= (ySpeed * speed) / 20;
+            x += xSpeed * speed / 20;
+            y -= ySpeed * speed / 20;
 
             //double n = Math.Sqrt(((GameScreen.trackpoints[30].x - x) * (GameScreen.trackpoints[30].x - x)) + ((GameScreen.trackpoints[30].y - y) * (GameScreen.trackpoints[30].y - y)));
 

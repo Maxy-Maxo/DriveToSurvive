@@ -19,9 +19,10 @@ namespace DriveToSurvive
 
         public static List<Car> cars = new List<Car>();
         public static List<Trackpoint> trackpoints = new List<Trackpoint>();
-        int mouseX, mouseY;
-        double gameX, gameY;
+        double mouseX, mouseY;
+        public static double gameX, gameY;
         int size = 100;
+        int player = 1;
 
         bool upArrow, downArrow, leftArrow, rightArrow;
 
@@ -36,43 +37,43 @@ namespace DriveToSurvive
         {
             if (upArrow && !downArrow)
             {
-                cars[0].speed++;
+                cars[player].speed++;
             }
             else if (!upArrow && downArrow)
             {
-                cars[0].speed--;
+                cars[player].speed--;
             }
             
-            if (leftArrow && !rightArrow && cars[0].steer >= -4)
+            if (leftArrow && !rightArrow && cars[player].steer >= -4)
             {
-                cars[0].steer--;
+                cars[player].steer--;
             }
-            else if (!leftArrow && rightArrow && cars[0].steer <= 4)
+            else if (!leftArrow && rightArrow && cars[player].steer <= 4)
             {
-                cars[0].steer++;
+                cars[player].steer++;
             }
 
-            if (cars[0].speed != 0 && (!upArrow && !downArrow || (upArrow && downArrow)))
+            if (cars[player].speed != 0 && (!upArrow && !downArrow || (upArrow && downArrow)))
             {
-                if (cars[0].speed > 0)
+                if (cars[player].speed > 0)
                 {
-                    cars[0].speed--;
+                    cars[player].speed--;
                 }
                 else
                 {
-                    cars[0].speed++;
+                    cars[player].speed++;
                 }
             }
 
-            if (cars[0].steer != 0 && (!leftArrow && !rightArrow || (leftArrow && rightArrow)))
+            if (cars[player].steer != 0 && (!leftArrow && !rightArrow || (leftArrow && rightArrow)))
             {
-                if (cars[0].steer > 0)
+                if (cars[player].steer > 0)
                 {
-                    cars[0].steer--;
+                    cars[player].steer--;
                 }
                 else
                 {
-                    cars[0].steer++;
+                    cars[player].steer++;
                 }
             }
 
@@ -80,15 +81,15 @@ namespace DriveToSurvive
             {
                 c.Move();
             }
-            gameX -= cars[0].xSpeed * cars[0].speed / 10;
-            gameY += cars[0].ySpeed * cars[0].speed / 10;
+            gameX -= cars[player].xSpeed * cars[player].speed / 20;
+            gameY += cars[player].ySpeed * cars[player].speed / 20;
 
             Refresh();
         }
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            trackpoints.Add(new Trackpoint(mouseX - (int)gameX, mouseY - (int)gameY, 90, Convert.ToInt16(size), trackpoints.Count));
+            trackpoints.Add(new Trackpoint((int)(mouseX - gameX), (int)(mouseY - gameY), 90, Convert.ToInt16(size * 2), trackpoints.Count));
             if (trackpoints.Count > 1)
             {
                 trackpoints[trackpoints.Count - 2].direction = Form1.GetDirection(trackpoints[trackpoints.Count - 1].x - trackpoints[trackpoints.Count - 2].x, trackpoints[trackpoints.Count - 1].y - trackpoints[trackpoints.Count - 2].y);
@@ -99,43 +100,43 @@ namespace DriveToSurvive
 
         private void GameScreen_MouseMove(object sender, MouseEventArgs e)
         {
-            mouseX = e.X;
-            mouseY = e.Y;
+            mouseX = e.X * Math.Pow(2, cars[player].z);
+            mouseY = e.Y * Math.Pow(2, cars[player].z);
         }
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.DrawImage(Properties.Resources.Edge, p.x - p.size / 20 - p.size / 2 + (int)gameX, p.y - p.size / 20 - p.size / 2 + (int)gameY, p.size + p.size / 10, p.size + p.size / 10);
+                e.Graphics.DrawImage(Properties.Resources.Edge, (float)((p.x - p.size / 20 - p.size / 2 + gameX) / Math.Pow(2, cars[player].z)), (float)((p.y - p.size / 20 - p.size / 2 + gameY) / Math.Pow(2, cars[player].z)), (float)((p.size + p.size / 10) / Math.Pow(2, cars[player].z)), (float)((p.size + p.size / 10) / Math.Pow(2, cars[player].z)));
             }
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.FillEllipse(trackColour, p.x - p.size / 2 + (int)gameX, p.y - p.size / 2 + (int)gameY, p.size, p.size);
+                e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 + gameX) / Math.Pow(2, cars[player].z)), (float)((p.y - p.size / 2 + gameY) / Math.Pow(2, cars[player].z)), (float)(p.size / Math.Pow(2, cars[player].z)), (float)(p.size / Math.Pow(2, cars[player].z)));
                 //e.Graphics.DrawLine(pen, p.x, p.y, (float)(p.x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2), (float)(p.y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2));
             }
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, p.x + (int)gameX, p.y + (int)gameY);
+                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, (float)((p.x + gameX) / Math.Pow(2, cars[player].z)), (float)((p.y + gameY - 10) / Math.Pow(2, cars[player].z)));
             }
 
             foreach (Car c in cars)
             {
-                if (c == cars[0])
+                if (c == cars[player])
                 {
-                    e.Graphics.TranslateTransform(c.width / 2 + Width / 2 - c.width / 2, c.height / 2 + Height / 2 - c.height / 2);
+                    e.Graphics.TranslateTransform((float)(c.width / Math.Pow(2, cars[player].z)) / 2 + Width / 2 - (float)(c.width / Math.Pow(2, cars[player].z)) / 2, (float)(c.height / Math.Pow(2, cars[player].z)) / 2 + Height / 2 - (float)(c.height / Math.Pow(2, cars[player].z)) / 2);
                 }
                 else
                 {
-                    e.Graphics.TranslateTransform(c.width / 2 + (float)(c.x + gameX) - c.width / 2, c.height / 2 + (float)(c.y + gameY) - c.height / 2);
+                    e.Graphics.TranslateTransform((float)((c.width / 2 + (c.x + gameX) - c.width / 2) / Math.Pow(2, cars[player].z)), (float)((c.height / 2 + (c.y + gameY) - c.height / 2) / Math.Pow(2, cars[player].z)));
                 }
                 e.Graphics.RotateTransform((float)c.direction);
-                e.Graphics.DrawImage(c.image, 0 - c.width / 2, 0 - c.height / 2, c.width, c.height);
+                e.Graphics.DrawImage(c.image, (float)(0 - c.width / 2 / Math.Pow(2, cars[player].z)), (float)(0 - c.height / 2 / Math.Pow(2, cars[player].z)), (float)(c.width / Math.Pow(2, cars[player].z)), (float)(c.height / Math.Pow(2, cars[player].z)));
                 e.Graphics.ResetTransform();
 
-                if (c == cars[0] && c.trackLocation != 0)
+                if (c == cars[player] && c.trackLocation != 0)
                 {
-                    e.Graphics.DrawLine(pen, Width / 2, Height / 2, trackpoints[c.trackLocation].x + (int)gameX, trackpoints[c.trackLocation].y + (int)gameY);
+                    e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x + gameX) / Math.Pow(2, cars[player].z)), (float)((trackpoints[c.trackLocation].y + gameY) / Math.Pow(2, cars[player].z)));
                     e.Graphics.DrawString($"{c.trackLocation}", gameFont, brush, 50, 75);
                     e.Graphics.DrawString($"{c.distToTrack}", gameFont, brush, 50, 100);
                 }
