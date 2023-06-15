@@ -12,6 +12,7 @@ namespace DriveToSurvive
 {
     public partial class GameScreen : UserControl
     {
+        public static Random random = new Random();
         SolidBrush brush = new SolidBrush(Color.White);
         SolidBrush trackColour = new SolidBrush(Color.FromArgb(50, 50, 50));
         SolidBrush playerBrush = new SolidBrush(Color.White);
@@ -22,6 +23,8 @@ namespace DriveToSurvive
         Properties.Resources.greenCar, Properties.Resources.tealCar, Properties.Resources.blueCar, Properties.Resources.purpleCar, Properties.Resources. pinkCar,
         Properties.Resources.blackCar, Properties.Resources.greyCar, Properties.Resources.whiteCar };
 
+        public static string[] name1 = { "speedy", "rapid", "angry", "happy", "intelligent", "powerful", "competitive", "fearless", "silly", "extreme", "savage", "mad", "spicy", "lonely", "social", "baby", "old", "high-strung", "reckless" };
+        public static string[] name2 = { "cat", "dog", "racer", "cheetah", "eagle", "fish", "unicorn", "driver", "sandwich", "cheese", "pineapple", "guy", "girl", "bee", "pickle", "chili-pepper", "wolf", "racoon", "dodo-bird", "dinosaur", };
         public static List<Car> cars = new List<Car>();
         public static List<Trackpoint> trackpoints = new List<Trackpoint>();
         double mouseX, mouseY;
@@ -35,8 +38,8 @@ namespace DriveToSurvive
         {
             InitializeComponent();
             cars.Add(new Car(0, 0, 90, 0, "Max"));
-            cars.Add(new Car(-100, 0, 315, 2, "Hornet"));
-            cars.Add(new Car(100, 0, 45, 6, "Jay"));
+            cars.Add(new Car(-100, 0, 315, random.Next(0, 12), ""));
+            cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)

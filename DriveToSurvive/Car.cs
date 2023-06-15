@@ -24,7 +24,15 @@ namespace DriveToSurvive
             y = _y;
             direction = _dirction;
             image = GameScreen.images[_image];
-            playerName = _nickname;
+
+            if (_nickname != "")
+            {
+                playerName = _nickname;
+            }
+            else
+            {
+                playerName = $"{GameScreen.name1[GameScreen.random.Next(0, GameScreen.name1.Length)]}_{GameScreen.name2[GameScreen.random.Next(0, GameScreen.name2.Length)]}{GameScreen.random.Next(10, 100)}";
+            }
 
             switch (_image)
             {
@@ -56,10 +64,10 @@ namespace DriveToSurvive
                     playerColour = Color.FromArgb(255, 160, 234);
                     break;
                 case 9:
-                    playerColour = Color.FromArgb(90, 90, 90);
+                    playerColour = Color.FromArgb(150, 150, 150);
                     break;
                 case 10:
-                    playerColour = Color.FromArgb(160, 160, 160);
+                    playerColour = Color.FromArgb(200, 200, 200);
                     break;
                 default:
                     playerColour = Color.White;
@@ -190,25 +198,31 @@ namespace DriveToSurvive
 
             if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) < 0)
             {
+                leftArrow = false;
                 rightArrow = true;
+            }
+            else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) > 0)
+            {
+                leftArrow = true;
+                rightArrow = false;
             }
             else
             {
                 rightArrow = false;
-            }
-            if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) > 0)
-            {
-                leftArrow = true;
-            }
-            else
-            {
                 leftArrow = false;
             }
         }
 
         public double CompareAngles(double a, double b)
         {
-            return 100 * Math.Sin((a - b) * Math.PI / 180);
+            if ((a - b) / 2 * Math.PI / 180 < 180)
+            {
+                return 100 * Math.Sin((a - b) / 2 * Math.PI / 180);
+            }
+            else
+            {
+                return -100 * Math.Sin((a - b) / 2 * Math.PI / 180);
+            }
         }
     }
 }
