@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace DriveToSurvive
 {
@@ -11,21 +12,110 @@ namespace DriveToSurvive
     {
         public int z, speed, steer, trackLocation, distToTrack, placeNumber = 0;
         public double xSpeed, ySpeed, direction, x, y, prevXSpeed, prevYSpeed = 0;
-        public int width = 30;
-        public int height = 50;
+        public int width = 30, height = 50;
+        public bool upArrow, downArrow, leftArrow, rightArrow;
+        public string playerName;
         public Bitmap image;
+        public Color playerColour;
 
-        public Car(double _x, double _y, double _dirction, Bitmap _image)
+        public Car(double _x, double _y, double _dirction, int _image, string _nickname)
         {
             x = _x;
             y = _y;
             direction = _dirction;
-            image = _image;
-            z = 1;
+            image = GameScreen.images[_image];
+            playerName = _nickname;
+
+            switch (_image)
+            {
+                case 0:
+                    playerColour = Color.FromArgb(255, 160, 160);
+                    break;
+                case 1:
+                    playerColour = Color.FromArgb(255, 218, 160);
+                    break;
+                case 2:
+                    playerColour = Color.FromArgb(255, 255, 160);
+                    break;
+                case 3:
+                    playerColour = Color.FromArgb(200, 255, 160);
+                    break;
+                case 4:
+                    playerColour = Color.FromArgb(100, 255, 100);
+                    break;
+                case 5:
+                    playerColour = Color.FromArgb(150, 210, 210);
+                    break;
+                case 6:
+                    playerColour = Color.FromArgb(160, 160, 255);
+                    break;
+                case 7:
+                    playerColour = Color.FromArgb(210, 160, 253);
+                    break;
+                case 8:
+                    playerColour = Color.FromArgb(255, 160, 234);
+                    break;
+                case 9:
+                    playerColour = Color.FromArgb(90, 90, 90);
+                    break;
+                case 10:
+                    playerColour = Color.FromArgb(160, 160, 160);
+                    break;
+                default:
+                    playerColour = Color.White;
+                    break;
+            }
         }
 
         public void Move()
         {
+            if (upArrow && !downArrow)
+            {
+                speed++;
+            }
+            else if (!upArrow && downArrow)
+            {
+                speed--;
+            }
+
+            if (leftArrow && !rightArrow && steer >= -4)
+            {
+                steer--;
+            }
+            else if (!leftArrow && rightArrow && steer <= 4)
+            {
+                steer++;
+            }
+
+            if (speed != 0 && (!upArrow && !downArrow || (upArrow && downArrow)))
+            {
+                if (speed > 0)
+                {
+                    speed--;
+                }
+                else
+                {
+                    speed++;
+                }
+            }
+
+            if (steer != 0 && (!leftArrow && !rightArrow || (leftArrow && rightArrow)))
+            {
+                if (steer > 0)
+                {
+                    steer--;
+                }
+                else
+                {
+                    steer++;
+                }
+            }
+
+            if (GameScreen.cars[GameScreen.player] != this && GameScreen.trackpoints.Count >= 5)
+            {
+                CarAI();
+            }
+
             direction += steer * speed / 150;
 
             if (direction >= 360)
@@ -75,6 +165,50 @@ namespace DriveToSurvive
         {
             xSpeed = Math.Sin(direction * Math.PI / 180);
             ySpeed = Math.Cos(direction * Math.PI / 180);
+        }
+
+        public void CarAI()
+        {
+            if (Math.Abs(CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction)) >= 70 || Math.Abs(CompareAngles(direction, GameScreen.trackpoints[trackLocation + 2].direction)) >= 86)
+            {
+                if (speed > 30)
+                {
+                    upArrow = false;
+                    downArrow = true;
+                }
+                else
+                {
+                    upArrow = true;
+                    downArrow = false;
+                }
+            }
+            else
+            {
+                upArrow = true;
+                downArrow = false;
+            }
+
+            if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) < 0)
+            {
+                rightArrow = true;
+            }
+            else
+            {
+                rightArrow = false;
+            }
+            if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) > 0)
+            {
+                leftArrow = true;
+            }
+            else
+            {
+                leftArrow = false;
+            }
+        }
+
+        public double CompareAngles(double a, double b)
+        {
+            return 100 * Math.Sin((a - b) * Math.PI / 180);
         }
     }
 }

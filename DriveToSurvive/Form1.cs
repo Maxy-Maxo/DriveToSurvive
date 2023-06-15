@@ -12,10 +12,13 @@ namespace DriveToSurvive
 {
     public partial class Form1 : Form
     {
+        public static int formHeight, formWidth;
         public Form1()
         {
             InitializeComponent();
             ChangeScreen(this, new MenuScreen());
+            formHeight = Height;
+            formWidth = Width;
         }
 
         public static void ChangeScreen(object sender, UserControl next)
