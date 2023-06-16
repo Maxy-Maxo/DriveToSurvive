@@ -39,7 +39,7 @@ namespace DriveToSurvive
             InitializeComponent();
             cars.Add(new Car(0, 0, 90, 0, "Max"));
             cars.Add(new Car(-100, 0, 315, random.Next(0, 12), ""));
-            cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
+            //cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace DriveToSurvive
             foreach (Trackpoint p in trackpoints)
             {
                 e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cars[player].x) / scale) + Width / 2, (float)((p.y - p.size / 2 - cars[player].y) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
-                //e.Graphics.DrawLine(pen, p.x, p.y, (float)(p.x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2), (float)(p.y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2));
+                //e.Graphics.DrawLine(pen, p.x, p.y, (float)((p.x - cars[player].x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale), (float)((p.y - cars[player].y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale));
             }
             foreach (Trackpoint p in trackpoints)
             {
