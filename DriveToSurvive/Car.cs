@@ -196,12 +196,12 @@ namespace DriveToSurvive
                 downArrow = false;
             }
 
-            if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) < 0)
+            if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) < 0)
             {
                 leftArrow = false;
                 rightArrow = true;
             }
-            else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction) > 0)
+            else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) > 0)
             {
                 leftArrow = true;
                 rightArrow = false;
@@ -215,7 +215,7 @@ namespace DriveToSurvive
 
         public double CompareAngles(double a, double b)
         {
-            if ((a - b) / 2 * Math.PI / 180 < 180)
+            if (a - b < 180 && a - b > -180)
             {
                 return 100 * Math.Sin((a - b) / 2 * Math.PI / 180);
             }
