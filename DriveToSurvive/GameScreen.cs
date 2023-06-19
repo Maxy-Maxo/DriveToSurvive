@@ -30,7 +30,7 @@ namespace DriveToSurvive
         double mouseX, mouseY;
         double scale = 1;
         int trackSize = 100;
-        public const int player = 0;
+        public const int player1 = 0, player2 = 1;
         public static int elevation = 0;
         int circle = 0;
 
@@ -39,7 +39,7 @@ namespace DriveToSurvive
             InitializeComponent();
             cars.Add(new Car(0, 0, 90, 0, "Max"));
             cars.Add(new Car(-100, 0, 315, random.Next(0, 12), ""));
-            //cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
+            cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace DriveToSurvive
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            trackpoints.Add(new Trackpoint((int)(mouseX * scale + cars[player].x), (int)(mouseY * scale + cars[player].y), 90, Convert.ToInt16(trackSize * 2), trackpoints.Count));
+            trackpoints.Add(new Trackpoint((int)(mouseX * scale + cars[player1].x), (int)(mouseY * scale + cars[player1].y), 90, Convert.ToInt16(trackSize * 2), trackpoints.Count));
             if (trackpoints.Count > 1)
             {
                 trackpoints[trackpoints.Count - 2].direction = Form1.GetDirection(trackpoints[trackpoints.Count - 1].x - trackpoints[trackpoints.Count - 2].x, trackpoints[trackpoints.Count - 1].y - trackpoints[trackpoints.Count - 2].y);
@@ -81,16 +81,16 @@ namespace DriveToSurvive
         {
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.DrawImage(Properties.Resources.Edge, (float)((p.x - cars[player].x - 11 * p.size / 20) / scale) + Width / 2, (float)((p.y - cars[player].y - 11 * p.size / 20) / scale) + Height / 2, (float)((p.size + p.size / 10) / scale), (float)((p.size + p.size / 10) / scale));
+                e.Graphics.DrawImage(Properties.Resources.Edge, (float)((p.x - cars[player1].x - 11 * p.size / 20) / scale) + Width / 2, (float)((p.y - cars[player1].y - 11 * p.size / 20) / scale) + Height / 2, (float)((p.size + p.size / 10) / scale), (float)((p.size + p.size / 10) / scale));
             }
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cars[player].x) / scale) + Width / 2, (float)((p.y - p.size / 2 - cars[player].y) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
+                e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cars[player1].x) / scale) + Width / 2, (float)((p.y - p.size / 2 - cars[player1].y) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
                 //e.Graphics.DrawLine(pen, p.x, p.y, (float)((p.x - cars[player].x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale), (float)((p.y - cars[player].y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale));
             }
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, (float)((p.x - cars[player].x) / scale) + Width / 2, (float)((p.y - cars[player].y - 10) / scale) + Height / 2);
+                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, (float)((p.x - cars[player1].x) / scale) + Width / 2, (float)((p.y - cars[player1].y - 10) / scale) + Height / 2);
             }
 
             foreach (Car c in cars)
@@ -102,16 +102,16 @@ namespace DriveToSurvive
                 playerBrush.Color = c.playerColour;
                 playerPen.Color = c.playerColour;
                 playerPen.Width = Math.Abs(circle) / (float)(2 * scale);
-                e.Graphics.DrawEllipse(playerPen, (float)((c.x - cars[player].x - (20 + Math.Abs(circle) / 4)) / scale) + Width / 2, (float)((c.y - cars[player].y - (20 + Math.Abs(circle) / 4)) / scale) + Height / 2, (float)((40 + Math.Abs(circle) / 2) / scale), (float)((40 + Math.Abs(circle) / 2) / scale));
-                e.Graphics.DrawString($"{c.playerName}", gameFont, playerBrush, (float)((c.x - cars[player].x) / scale) + Width / 2, (float)((c.y - cars[player].y - 30) / scale) + Height / 2, stringFormat);
+                e.Graphics.DrawEllipse(playerPen, (float)((c.x - cars[player1].x - (20 + Math.Abs(circle) / 4)) / scale) + Width / 2, (float)((c.y - cars[player1].y - (20 + Math.Abs(circle) / 4)) / scale) + Height / 2, (float)((40 + Math.Abs(circle) / 2) / scale), (float)((40 + Math.Abs(circle) / 2) / scale));
+                e.Graphics.DrawString($"{c.playerName}", gameFont, playerBrush, (float)((c.x - cars[player1].x) / scale) + Width / 2, (float)((c.y - cars[player1].y - 30) / scale) + Height / 2, stringFormat);
 
-                if (c == cars[player])
+                if (c == cars[player1])
                 {
                     e.Graphics.TranslateTransform(Width / 2, Height / 2);
                 }
                 else
                 {
-                    e.Graphics.TranslateTransform((float)((c.x - cars[player].x) / scale) + Width / 2, (float)((c.y - cars[player].y) / scale) + Height / 2);
+                    e.Graphics.TranslateTransform((float)((c.x - cars[player1].x) / scale) + Width / 2, (float)((c.y - cars[player1].y) / scale) + Height / 2);
                 }
                 e.Graphics.RotateTransform((float)c.direction);
                 e.Graphics.DrawImage(c.image, (float)(0 - c.width / 2 / scale), (float)(0 - c.height / 2 / scale), (float)(c.width / scale), (float)(c.height / scale));
@@ -119,7 +119,7 @@ namespace DriveToSurvive
 
                 if (trackpoints.Count > 0)
                 {
-                    e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x - cars[player].x) / scale) + Width / 2, (float)((trackpoints[c.trackLocation].y - cars[player].y) / scale) + Height / 2);
+                    e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x - cars[player1].x) / scale) + Width / 2, (float)((trackpoints[c.trackLocation].y - cars[player1].y) / scale) + Height / 2);
                     e.Graphics.DrawString($"{c.trackLocation}", gameFont, brush, 50, 75);
                     e.Graphics.DrawString($"{c.distToTrack}", gameFont, brush, 50, 100);
                 }
@@ -133,31 +133,46 @@ namespace DriveToSurvive
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    cars[player].upArrow = true;
+                    cars[player1].upArrow = true;
                     break;
                 case Keys.Down:
-                    cars[player].downArrow = true;
+                    cars[player1].downArrow = true;
                     break;
                 case Keys.Left:
-                    cars[player].leftArrow = true;
+                    cars[player1].leftArrow = true;
                     break;
                 case Keys.Right:
-                    cars[player].rightArrow = true;
+                    cars[player1].rightArrow = true;
                     break;
                 case Keys.W:
-                    trackSize++;
+                    cars[player2].upArrow = true;
                     break;
                 case Keys.S:
+                    cars[player2].downArrow = true;
+                    break;
+                case Keys.A:
+                    cars[player2].leftArrow = true;
+                    break;
+                case Keys.D:
+                    cars[player2].rightArrow = true;
+                    break;
+                case Keys.I:
+                    trackSize++;
+                    break;
+                case Keys.K:
                     if (trackSize > 0)
                     {
                         trackSize--;
                     }
                     break;
-                case Keys.Q:
+                case Keys.O:
                     elevation++;
                     break;
-                case Keys.A:
+                case Keys.L:
                     elevation--;
+                    break;
+                case Keys.Space:
+                    cars.Add(new Car(cars[player1].x, cars[player1].y, cars[player1].direction, random.Next(0, 12), ""));
                     break;
             }
         }
@@ -167,16 +182,28 @@ namespace DriveToSurvive
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    cars[player].upArrow = false;
+                    cars[player1].upArrow = false;
                     break;
                 case Keys.Down:
-                    cars[player].downArrow = false;
+                    cars[player1].downArrow = false;
                     break;
                 case Keys.Left:
-                    cars[player].leftArrow = false;
+                    cars[player1].leftArrow = false;
                     break;
                 case Keys.Right:
-                    cars[player].rightArrow = false;
+                    cars[player1].rightArrow = false;
+                    break;
+                case Keys.W:
+                    cars[player2].upArrow = false;
+                    break;
+                case Keys.S:
+                    cars[player2].downArrow = false;
+                    break;
+                case Keys.A:
+                    cars[player2].leftArrow = false;
+                    break;
+                case Keys.D:
+                    cars[player2].rightArrow = false;
                     break;
             }
         }

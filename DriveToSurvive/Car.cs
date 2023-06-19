@@ -119,7 +119,7 @@ namespace DriveToSurvive
                 }
             }
 
-            if (GameScreen.cars[GameScreen.player] != this && GameScreen.trackpoints.Count >= 5)
+            if (GameScreen.cars[GameScreen.player1] != this && GameScreen.cars[GameScreen.player2] != this && GameScreen.trackpoints.Count >= 5)
             {
                 CarAI();
             }
@@ -204,7 +204,6 @@ namespace DriveToSurvive
                 }
                 else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) > 0)
                 {
-                    Console.WriteLine(">0 " + direction);
                     leftArrow = true;
                     rightArrow = false;
                 }
@@ -216,7 +215,21 @@ namespace DriveToSurvive
             }
             else // Car is trying to get to the trackpoint it's at
             {
-
+                if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[trackLocation].x - x, y - GameScreen.trackpoints[trackLocation].y)) < 0)
+                {
+                    leftArrow = false;
+                    rightArrow = true;
+                }
+                else if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[trackLocation].x - x, y - GameScreen.trackpoints[trackLocation].y)) > 0)
+                {
+                    leftArrow = true;
+                    rightArrow = false;
+                }
+                else
+                {
+                    rightArrow = false;
+                    leftArrow = false;
+                }
             }
         }
 

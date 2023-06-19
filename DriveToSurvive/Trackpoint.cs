@@ -14,9 +14,9 @@ namespace DriveToSurvive
         {
             x = _x;
             y = _y;
-            direction = _direction;
             size = _size;
             pointNumber = _pointNumber;
+            direction = _direction;
         }
     }
 }
