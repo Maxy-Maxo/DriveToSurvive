@@ -195,22 +195,28 @@ namespace DriveToSurvive
                 upArrow = true;
                 downArrow = false;
             }
+            if (distToTrack < GameScreen.trackpoints[trackLocation].size / 2) // Car is on the track
+            {
+                if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) < 0)
+                {
+                    leftArrow = false;
+                    rightArrow = true;
+                }
+                else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) > 0)
+                {
+                    Console.WriteLine(">0 " + direction);
+                    leftArrow = true;
+                    rightArrow = false;
+                }
+                else
+                {
+                    rightArrow = false;
+                    leftArrow = false;
+                }
+            }
+            else // Car is trying to get to the trackpoint it's at
+            {
 
-            if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) < 0)
-            {
-                leftArrow = false;
-                rightArrow = true;
-            }
-            else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) > 0)
-            {
-                Console.WriteLine(">0 " + direction);
-                leftArrow = true;
-                rightArrow = false;
-            }
-            else
-            {
-                rightArrow = false;
-                leftArrow = false;
             }
         }
 
