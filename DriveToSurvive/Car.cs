@@ -160,6 +160,7 @@ namespace DriveToSurvive
                     trackLocation = i;
                 }
             }
+            CheckCollisions();
         }
 
         public void SetSpeed()
@@ -235,13 +236,38 @@ namespace DriveToSurvive
 
         public double CompareAngles(double a, double b)
         {
-            if (a + b < 180 && a + b > -180)
+            if (a < 180 && a > -180)
             {
-                return -100 * Math.Sin((a + b) / 2 * Math.PI / 180);
+                a = 100 * Math.Sin(a / 2 * Math.PI / 180);
             }
             else
             {
-                return 100 * Math.Sin((a + b) / 2 * Math.PI / 180);
+                a = -100 * Math.Sin(a / 2 * Math.PI / 180);
+            }
+
+            if (b < 180 && b > -180)
+            {
+                b = 100 * Math.Sin(b / 2 * Math.PI / 180);
+            }
+            else
+            {
+                b = -100 * Math.Sin(b / 2 * Math.PI / 180);
+            }
+
+            return a - b;
+        }
+
+        public void CheckCollisions()
+        {
+            foreach (Car c in GameScreen.cars)
+            {
+                if (Math.Sqrt(Math.Pow(c.x - x, 2) + Math.Pow(c.y - y, 2)) < 80 && c != this)
+                {
+                    c.speed /= 2;
+                    speed /= 2;
+                    c.x += c.x - x;
+                    c.y += c.y - y;
+                }
             }
         }
     }

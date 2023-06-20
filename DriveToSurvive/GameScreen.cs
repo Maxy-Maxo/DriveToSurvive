@@ -86,6 +86,21 @@ namespace DriveToSurvive
             foreach (Trackpoint p in trackpoints)
             {
                 e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cars[player1].x) / scale) + Width / 2, (float)((p.y - p.size / 2 - cars[player1].y) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
+                Trackpoint p2 = trackpoints[0];
+                if (p == trackpoints[trackpoints.Count - 1])
+                {
+                    p2 = trackpoints[0];
+                }
+                else
+                {
+                    for (int i = 0; i < trackpoints.Count; i++)
+                    {
+                        if (p == trackpoints[i])
+                        {
+                            p2 = trackpoints[i + 1];
+                        }
+                    }
+                }
                 //e.Graphics.DrawLine(pen, p.x, p.y, (float)((p.x - cars[player].x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale), (float)((p.y - cars[player].y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale));
             }
             foreach (Trackpoint p in trackpoints)
