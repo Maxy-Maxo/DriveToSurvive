@@ -120,4 +120,12 @@
   <metadata name="gameTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="helpText.Text" xml:space="preserve">
+    <value>Use arrow keys to move player one
+Use WASD to move player two
+Click anywhere to place a track point
+Use I and K to change the track width
+Use O and L to zoom in and out
+Press Space to spawn an AI racer</value>
+  </data>
 </root>

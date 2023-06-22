@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameScreen));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.helpButton = new System.Windows.Forms.Label();
+            this.helpText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -38,11 +41,36 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
+            // helpButton
+            // 
+            this.helpButton.BackColor = System.Drawing.Color.DimGray;
+            this.helpButton.Font = new System.Drawing.Font("Squada One", 20F);
+            this.helpButton.Location = new System.Drawing.Point(704, 24);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(72, 38);
+            this.helpButton.TabIndex = 0;
+            this.helpButton.Text = "HELP";
+            this.helpButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
+            // 
+            // helpText
+            // 
+            this.helpText.AutoSize = true;
+            this.helpText.BackColor = System.Drawing.Color.Transparent;
+            this.helpText.Location = new System.Drawing.Point(450, 62);
+            this.helpText.Name = "helpText";
+            this.helpText.Size = new System.Drawing.Size(326, 150);
+            this.helpText.TabIndex = 1;
+            this.helpText.Text = resources.GetString("helpText.Text");
+            this.helpText.Visible = false;
+            // 
             // GameScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGreen;
+            this.Controls.Add(this.helpText);
+            this.Controls.Add(this.helpButton);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Squada One", 13.8F);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -55,11 +83,14 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GameScreen_MouseMove);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Label helpButton;
+        private System.Windows.Forms.Label helpText;
     }
 }

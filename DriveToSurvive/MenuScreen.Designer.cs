@@ -30,6 +30,7 @@
         {
             this.playButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.buildButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // playButton
@@ -66,10 +67,28 @@
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // buildButton
+            // 
+            this.buildButton.BackColor = System.Drawing.Color.SkyBlue;
+            this.buildButton.FlatAppearance.BorderColor = System.Drawing.Color.SteelBlue;
+            this.buildButton.FlatAppearance.BorderSize = 5;
+            this.buildButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.buildButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.buildButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buildButton.Font = new System.Drawing.Font("Squada One", 20F, System.Drawing.FontStyle.Bold);
+            this.buildButton.Location = new System.Drawing.Point(309, 349);
+            this.buildButton.Name = "buildButton";
+            this.buildButton.Size = new System.Drawing.Size(181, 80);
+            this.buildButton.TabIndex = 2;
+            this.buildButton.Text = "Track Builder";
+            this.buildButton.UseVisualStyleBackColor = false;
+            this.buildButton.Click += new System.EventHandler(this.buildButton_Click);
+            // 
             // MenuScreen
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.ForestGreen;
+            this.Controls.Add(this.buildButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
             this.Font = new System.Drawing.Font("Squada One", 13.8F);
@@ -84,5 +103,6 @@
 
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button buildButton;
     }
 }

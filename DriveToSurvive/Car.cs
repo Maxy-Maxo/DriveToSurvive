@@ -10,7 +10,7 @@ namespace DriveToSurvive
 {
     public class Car
     {
-        public int z, speed, steer, trackLocation, distToTrack, placeNumber = 0;
+        public int z, speed, steer, trackLocation, distToTrack, placeNumber, targetLocation = 0;
         public double xSpeed, ySpeed, direction, x, y, prevXSpeed, prevYSpeed = 0;
         public int width = 30, height = 50;
         public bool upArrow, downArrow, leftArrow, rightArrow;
@@ -124,7 +124,14 @@ namespace DriveToSurvive
                 CarAI();
             }
 
-            direction += steer * speed / 150;
+            if (speed < 200)
+            {
+                direction += steer * speed / 150;
+            }
+            else
+            {
+                direction += steer * 4 / 3;
+            }
 
             if (direction >= 360)
             {
@@ -160,6 +167,22 @@ namespace DriveToSurvive
                     trackLocation = i;
                 }
             }
+            if (GameScreen.trackpoints.Count >= 5)
+            {
+                if (trackLocation == targetLocation && distToTrack < GameScreen.trackpoints[trackLocation].size / 2)
+                {
+                    if (targetLocation == 0)
+                    {
+                        // car has completed a lap
+                    }
+                    targetLocation++;
+                    if (targetLocation == GameScreen.trackpoints.Count)
+                    {
+                        targetLocation = 0;
+                    }
+                }
+            }
+
             CheckCollisions();
         }
 
@@ -178,83 +201,73 @@ namespace DriveToSurvive
 
         public void CarAI()
         {
-            if (Math.Abs(CompareAngles(direction, GameScreen.trackpoints[trackLocation + 1].direction)) >= 70 || Math.Abs(CompareAngles(direction, GameScreen.trackpoints[trackLocation + 2].direction)) >= 86)
+            upArrow = true;
+            downArrow = false;
+
+            //if (distToTrack < GameScreen.trackpoints[trackLocation].size / 2) // Car is on the track
+            //{
+            //    if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[targetLocation].x - x, y - GameScreen.trackpoints[targetLocation].y)) < 0)
+            //    {
+            //        leftArrow = false;
+            //        rightArrow = true;
+            //    }
+            //    else if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[targetLocation].x - x, y - GameScreen.trackpoints[targetLocation].y)) > 0)
+            //    {
+            //        leftArrow = true;
+            //        rightArrow = false;
+            //    }
+            //    else
+            //    {
+            //        rightArrow = false;
+            //        leftArrow = false;
+            //    }
+            //}
+            //else // Car is trying to get to the trackpoint it's at
+            //{
+            //    if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[trackLocation].x - x, y - GameScreen.trackpoints[trackLocation].y)) < 0)
+            //    {
+            //        leftArrow = false;
+            //        rightArrow = true;
+            //    }
+            //    else if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[trackLocation].x - x, y - GameScreen.trackpoints[trackLocation].y)) > 0)
+            //    {
+            //        leftArrow = true;
+            //        rightArrow = false;
+            //    }
+            //    else
+            //    {
+            //        rightArrow = false;
+            //        leftArrow = false;
+            //    }
+            //}
+            if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[targetLocation].x - x, y - GameScreen.trackpoints[targetLocation].y)) < 0)
             {
-                if (speed > 90)
-                {
-                    upArrow = false;
-                    downArrow = true;
-                }
-                else
-                {
-                    upArrow = true;
-                    downArrow = false;
-                }
+                leftArrow = false;
+                rightArrow = true;
+            }
+            else if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[targetLocation].x - x, y - GameScreen.trackpoints[targetLocation].y)) > 0)
+            {
+                leftArrow = true;
+                rightArrow = false;
             }
             else
             {
-                upArrow = true;
-                downArrow = false;
-            }
-            if (distToTrack < GameScreen.trackpoints[trackLocation].size / 2) // Car is on the track
-            {
-                if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) < 0)
-                {
-                    leftArrow = false;
-                    rightArrow = true;
-                }
-                else if (CompareAngles(direction, GameScreen.trackpoints[trackLocation].direction) > 0)
-                {
-                    leftArrow = true;
-                    rightArrow = false;
-                }
-                else
-                {
-                    rightArrow = false;
-                    leftArrow = false;
-                }
-            }
-            else // Car is trying to get to the trackpoint it's at
-            {
-                if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[trackLocation].x - x, y - GameScreen.trackpoints[trackLocation].y)) < 0)
-                {
-                    leftArrow = false;
-                    rightArrow = true;
-                }
-                else if (CompareAngles(direction, Form1.GetDirection(GameScreen.trackpoints[trackLocation].x - x, y - GameScreen.trackpoints[trackLocation].y)) > 0)
-                {
-                    leftArrow = true;
-                    rightArrow = false;
-                }
-                else
-                {
-                    rightArrow = false;
-                    leftArrow = false;
-                }
+                rightArrow = false;
+                leftArrow = false;
             }
         }
 
         public double CompareAngles(double a, double b)
         {
-            if (a < 180 && a > -180)
+            b += 180;
+            if (b - a < 180 && b - a > -180)
             {
-                a = 100 * Math.Sin(a / 2 * Math.PI / 180);
+                return 100 * Math.Sin((b - a) / 2 * Math.PI / 180);
             }
             else
             {
-                a = -100 * Math.Sin(a / 2 * Math.PI / 180);
+                return -100 * Math.Sin((b - a) / 2 * Math.PI / 180);
             }
-
-            if (b < 180 && b > -180)
-            {
-                b = 100 * Math.Sin(b / 2 * Math.PI / 180);
-            }
-            else
-            {
-                b = -100 * Math.Sin(b / 2 * Math.PI / 180);
-            }
-
-            return a - b;
         }
 
         public void CheckCollisions()

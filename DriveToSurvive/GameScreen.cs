@@ -37,8 +37,8 @@ namespace DriveToSurvive
         public GameScreen()
         {
             InitializeComponent();
-            cars.Add(new Car(0, 0, 90, 0, "Max"));
-            cars.Add(new Car(-100, 0, 315, random.Next(0, 12), ""));
+            cars.Add(new Car(0, 0, 90, 0, "Player1"));
+            cars.Add(new Car(-100, 0, 315, 2, "Player2"));
             cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
         }
 
@@ -79,6 +79,7 @@ namespace DriveToSurvive
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.DrawEllipse(pen, (float)((mouseX + Width / 2) - trackSize / scale), (float)((mouseY + Height / 2) - trackSize / scale), (float)(trackSize * 2 / scale), (float)(trackSize * 2 / scale));
             foreach (Trackpoint p in trackpoints)
             {
                 e.Graphics.DrawImage(Properties.Resources.Edge, (float)((p.x - cars[player1].x - 11 * p.size / 20) / scale) + Width / 2, (float)((p.y - cars[player1].y - 11 * p.size / 20) / scale) + Height / 2, (float)((p.size + p.size / 10) / scale), (float)((p.size + p.size / 10) / scale));
@@ -87,11 +88,7 @@ namespace DriveToSurvive
             {
                 e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cars[player1].x) / scale) + Width / 2, (float)((p.y - p.size / 2 - cars[player1].y) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
                 Trackpoint p2 = trackpoints[0];
-                if (p == trackpoints[trackpoints.Count - 1])
-                {
-                    p2 = trackpoints[0];
-                }
-                else
+                if (p != trackpoints[trackpoints.Count - 1])
                 {
                     for (int i = 0; i < trackpoints.Count; i++)
                     {
@@ -132,15 +129,29 @@ namespace DriveToSurvive
                 e.Graphics.DrawImage(c.image, (float)(0 - c.width / 2 / scale), (float)(0 - c.height / 2 / scale), (float)(c.width / scale), (float)(c.height / scale));
                 e.Graphics.ResetTransform();
 
-                if (trackpoints.Count > 0)
-                {
-                    e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x - cars[player1].x) / scale) + Width / 2, (float)((trackpoints[c.trackLocation].y - cars[player1].y) / scale) + Height / 2);
-                    e.Graphics.DrawString($"{c.trackLocation}", gameFont, brush, 50, 75);
-                    e.Graphics.DrawString($"{c.distToTrack}", gameFont, brush, 50, 100);
-                }
+                //if (trackpoints.Count > 0)
+                //{
+                //    //e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x - cars[player1].x) / scale) + Width / 2, (float)((trackpoints[c.trackLocation].y - cars[player1].y) / scale) + Height / 2); // Draws line to nearest point on track
+                //    e.Graphics.DrawString($"{c.trackLocation}", gameFont, brush, 50, 75);
+                //    e.Graphics.DrawString($"{c.distToTrack}", gameFont, brush, 50, 100);
+                //}
             }
 
-            e.Graphics.DrawString($"{trackSize}", gameFont, brush, 50, 50);
+            e.Graphics.DrawString($"Track Size: {trackSize}", gameFont, brush, 50, 50);
+        }
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            if (helpText.Visible)
+            {
+                helpText.Visible = false;
+                helpButton.BackColor = Color.DimGray;
+            }
+            else
+            {
+                helpText.Visible = true;
+                helpButton.BackColor = Color.FromArgb(50, 50, 50);
+            }
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)

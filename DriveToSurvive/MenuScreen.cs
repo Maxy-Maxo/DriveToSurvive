@@ -12,6 +12,7 @@ namespace DriveToSurvive
 {
     public partial class MenuScreen : UserControl
     {
+        public static int mode;
         public MenuScreen()
         {
             InitializeComponent();
@@ -19,12 +20,19 @@ namespace DriveToSurvive
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new TrackSelectScreen());
+            //mode = 0;
+            //Form1.ChangeScreen(this, new TrackSelectScreen());
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void buildButton_Click(object sender, EventArgs e)
+        {
+            mode = 1;
+            Form1.ChangeScreen(this, new GameScreen());
         }
     }
 }
