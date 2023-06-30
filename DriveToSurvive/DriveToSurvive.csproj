@@ -149,5 +149,41 @@
   <ItemGroup>
     <None Include="Resources\redCar.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\whiteHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\greyHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blackHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pinkHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\purpleHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blueHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tealHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\greenHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\limeHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellowHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\orangeHatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redHatch.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

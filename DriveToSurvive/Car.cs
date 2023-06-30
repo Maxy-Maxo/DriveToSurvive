@@ -69,6 +69,39 @@ namespace DriveToSurvive
                 case 10:
                     playerColour = Color.FromArgb(200, 200, 200);
                     break;
+                case 12:
+                    playerColour = Color.FromArgb(255, 160, 160);
+                    break;
+                case 13:
+                    playerColour = Color.FromArgb(255, 218, 160);
+                    break;
+                case 14:
+                    playerColour = Color.FromArgb(255, 255, 160);
+                    break;
+                case 15:
+                    playerColour = Color.FromArgb(200, 255, 160);
+                    break;
+                case 16:
+                    playerColour = Color.FromArgb(100, 255, 100);
+                    break;
+                case 17:
+                    playerColour = Color.FromArgb(150, 210, 210);
+                    break;
+                case 18:
+                    playerColour = Color.FromArgb(160, 160, 255);
+                    break;
+                case 19:
+                    playerColour = Color.FromArgb(210, 160, 253);
+                    break;
+                case 20:
+                    playerColour = Color.FromArgb(255, 160, 234);
+                    break;
+                case 21:
+                    playerColour = Color.FromArgb(150, 150, 150);
+                    break;
+                case 22:
+                    playerColour = Color.FromArgb(200, 200, 200);
+                    break;
                 default:
                     playerColour = Color.White;
                     break;

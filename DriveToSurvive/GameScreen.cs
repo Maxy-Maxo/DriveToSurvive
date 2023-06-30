@@ -21,10 +21,12 @@ namespace DriveToSurvive
         Font gameFont = new Font("Squada One", 20, FontStyle.Regular);
         public static Bitmap[] images = { Properties.Resources.redCar, Properties.Resources.orangeCar, Properties.Resources.yellowCar, Properties.Resources.limeCar,
         Properties.Resources.greenCar, Properties.Resources.tealCar, Properties.Resources.blueCar, Properties.Resources.purpleCar, Properties.Resources. pinkCar,
-        Properties.Resources.blackCar, Properties.Resources.greyCar, Properties.Resources.whiteCar };
+        Properties.Resources.blackCar, Properties.Resources.greyCar, Properties.Resources.whiteCar, Properties.Resources.redHatch, Properties.Resources.orangeHatch, Properties.Resources.yellowHatch, Properties.Resources.limeHatch,
+        Properties.Resources.greenHatch, Properties.Resources.tealHatch, Properties.Resources.blueHatch, Properties.Resources.purpleHatch, Properties.Resources. pinkHatch,
+        Properties.Resources.blackHatch, Properties.Resources.greyHatch, Properties.Resources.whiteHatch };
 
-        public static string[] name1 = { "speedy", "rapid", "angry", "happy", "intelligent", "powerful", "competitive", "fearless", "silly", "extreme", "savage", "mad", "spicy", "lonely", "social", "baby", "old", "high-strung", "reckless" };
-        public static string[] name2 = { "cat", "dog", "racer", "cheetah", "eagle", "fish", "unicorn", "driver", "sandwich", "cheese", "pineapple", "guy", "girl", "bee", "pickle", "chili-pepper", "wolf", "racoon", "dodo-bird", "dinosaur", };
+        public static string[] name1 = { "speedy", "rapid", "angry", "happy", "intelligent", "powerful", "competitive", "fearless", "silly", "extreme", "savage", "mad", "spicy", "lonely", "social", "baby", "old", "high-strung", "reckless", "superior", "awesome", "flaming-hot", "ice-cold", "awakened", "suspicious", "lovely", "sporty", "chill" };
+        public static string[] name2 = { "cat", "dog", "racer", "cheetah", "eagle", "fish", "unicorn", "driver", "sandwich", "cheese", "pineapple", "guy", "girl", "bee", "pickle", "chili-pepper", "wolf", "racoon", "dodo-bird", "dinosaur", "turtle", "man", "woman", "fella", "caterpillar", "marshmallow", "salamander" };
         public static List<Car> cars = new List<Car>();
         public static List<Trackpoint> trackpoints = new List<Trackpoint>();
         double mouseX, mouseY;
@@ -39,7 +41,7 @@ namespace DriveToSurvive
             InitializeComponent();
             cars.Add(new Car(0, 0, 90, 0, "Player1"));
             cars.Add(new Car(-100, 0, 315, 2, "Player2"));
-            cars.Add(new Car(100, 0, 45, random.Next(0, 12), ""));
+            cars.Add(new Car(100, 0, 45, random.Next(0, 24), ""));
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -98,7 +100,13 @@ namespace DriveToSurvive
                         }
                     }
                 }
-                //e.Graphics.DrawLine(pen, p.x, p.y, (float)((p.x - cars[player].x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale), (float)((p.y - cars[player].y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale));
+                e.Graphics.DrawLine(pen, (float)((p.x - cars[player1].x) / scale) + Width / 2, (float)((p.y - cars[player1].y) / scale) + Height / 2, (float)((p.x - cars[player1].x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (float)((p.y - cars[player1].y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point1 = new Point((int)((p.x - cars[player1].x + Math.Sin((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cars[player1].y + Math.Cos((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point2 = new Point((int)((p.x - cars[player1].x + Math.Sin((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cars[player1].y + Math.Cos((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point3 = new Point((int)((p2.x - cars[player1].x + Math.Sin((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cars[player1].y + Math.Cos((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
+                Point point4 = new Point((int)((p2.x - cars[player1].x + Math.Sin((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cars[player1].y + Math.Cos((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
+                Point[] points = { point1, point2, point3, point4 };
+                e.Graphics.FillPolygon(trackColour, points);
             }
             foreach (Trackpoint p in trackpoints)
             {
@@ -114,8 +122,11 @@ namespace DriveToSurvive
                 playerBrush.Color = c.playerColour;
                 playerPen.Color = c.playerColour;
                 playerPen.Width = Math.Abs(circle) / (float)(2 * scale);
-                e.Graphics.DrawEllipse(playerPen, (float)((c.x - cars[player1].x - (20 + Math.Abs(circle) / 4)) / scale) + Width / 2, (float)((c.y - cars[player1].y - (20 + Math.Abs(circle) / 4)) / scale) + Height / 2, (float)((40 + Math.Abs(circle) / 2) / scale), (float)((40 + Math.Abs(circle) / 2) / scale));
-                e.Graphics.DrawString($"{c.playerName}", gameFont, playerBrush, (float)((c.x - cars[player1].x) / scale) + Width / 2, (float)((c.y - cars[player1].y - 30) / scale) + Height / 2, stringFormat);
+                if (elevation < 30)
+                {
+                    e.Graphics.DrawEllipse(playerPen, (float)((c.x - cars[player1].x - (20 + Math.Abs(circle) / 4)) / scale) + Width / 2, (float)((c.y - cars[player1].y - (20 + Math.Abs(circle) / 4)) / scale) + Height / 2, (float)((40 + Math.Abs(circle) / 2) / scale), (float)((40 + Math.Abs(circle) / 2) / scale));
+                }
+                e.Graphics.DrawString($"{c.playerName} {c.targetLocation}", gameFont, playerBrush, (float)((c.x - cars[player1].x) / scale) + Width / 2, (float)((c.y - cars[player1].y - 30) / scale) + Height / 2, stringFormat);
 
                 if (c == cars[player1])
                 {
@@ -183,22 +194,22 @@ namespace DriveToSurvive
                     cars[player2].rightArrow = true;
                     break;
                 case Keys.I:
-                    trackSize++;
+                    trackSize += 5;
                     break;
                 case Keys.K:
                     if (trackSize > 0)
                     {
-                        trackSize--;
+                        trackSize -= 5;
                     }
                     break;
                 case Keys.O:
-                    elevation++;
-                    break;
-                case Keys.L:
                     elevation--;
                     break;
+                case Keys.L:
+                    elevation++;
+                    break;
                 case Keys.Space:
-                    cars.Add(new Car(cars[player1].x, cars[player1].y, cars[player1].direction, random.Next(0, 12), ""));
+                    cars.Add(new Car(cars[player1].x, cars[player1].y, cars[player1].direction, random.Next(0, 24), ""));
                     break;
             }
         }
