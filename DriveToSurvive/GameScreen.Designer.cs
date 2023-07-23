@@ -45,9 +45,9 @@
             // 
             this.helpButton.BackColor = System.Drawing.Color.DimGray;
             this.helpButton.Font = new System.Drawing.Font("Squada One", 20F);
-            this.helpButton.Location = new System.Drawing.Point(704, 24);
+            this.helpButton.Location = new System.Drawing.Point(724, 3);
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(72, 38);
+            this.helpButton.Size = new System.Drawing.Size(74, 36);
             this.helpButton.TabIndex = 0;
             this.helpButton.Text = "HELP";
             this.helpButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -57,7 +57,7 @@
             // 
             this.helpText.AutoSize = true;
             this.helpText.BackColor = System.Drawing.Color.Transparent;
-            this.helpText.Location = new System.Drawing.Point(450, 62);
+            this.helpText.Location = new System.Drawing.Point(470, 41);
             this.helpText.Name = "helpText";
             this.helpText.Size = new System.Drawing.Size(326, 150);
             this.helpText.TabIndex = 1;

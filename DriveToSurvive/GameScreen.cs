@@ -15,6 +15,7 @@ namespace DriveToSurvive
         public static Random random = new Random();
         SolidBrush brush = new SolidBrush(Color.White);
         SolidBrush trackColour = new SolidBrush(Color.FromArgb(50, 50, 50));
+        SolidBrush trackEdge = new SolidBrush(Color.Red);
         SolidBrush playerBrush = new SolidBrush(Color.White);
         Pen playerPen = new Pen(Color.White);
         Pen pen = new Pen(Color.Red, 2);
@@ -35,6 +36,7 @@ namespace DriveToSurvive
         public const int player1 = 0, player2 = 1;
         public static int elevation = 0;
         int circle = 0;
+        int cameraX, cameraY = 0;
 
         public GameScreen()
         {
@@ -58,13 +60,15 @@ namespace DriveToSurvive
             {
                 circle = -20;
             }
+            cameraX = (int)((cars[player1].x + cars[player2].x) / 2);
+            cameraY = (int)((cars[player1].y + cars[player2].y) / 2);
 
             Refresh();
         }
 
         private void GameScreen_MouseClick(object sender, MouseEventArgs e)
         {
-            trackpoints.Add(new Trackpoint((int)(mouseX * scale + cars[player1].x), (int)(mouseY * scale + cars[player1].y), 90, Convert.ToInt16(trackSize * 2), trackpoints.Count));
+            trackpoints.Add(new Trackpoint((int)(mouseX * scale + cameraX), (int)(mouseY * scale + cameraY), 90, Convert.ToInt16(trackSize * 2), trackpoints.Count));
             if (trackpoints.Count > 1)
             {
                 trackpoints[trackpoints.Count - 2].direction = Form1.GetDirection(trackpoints[trackpoints.Count - 1].x - trackpoints[trackpoints.Count - 2].x, trackpoints[trackpoints.Count - 1].y - trackpoints[trackpoints.Count - 2].y);
@@ -84,11 +88,6 @@ namespace DriveToSurvive
             e.Graphics.DrawEllipse(pen, (float)((mouseX + Width / 2) - trackSize / scale), (float)((mouseY + Height / 2) - trackSize / scale), (float)(trackSize * 2 / scale), (float)(trackSize * 2 / scale));
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.DrawImage(Properties.Resources.Edge, (float)((p.x - cars[player1].x - 11 * p.size / 20) / scale) + Width / 2, (float)((p.y - cars[player1].y - 11 * p.size / 20) / scale) + Height / 2, (float)((p.size + p.size / 10) / scale), (float)((p.size + p.size / 10) / scale));
-            }
-            foreach (Trackpoint p in trackpoints)
-            {
-                e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cars[player1].x) / scale) + Width / 2, (float)((p.y - p.size / 2 - cars[player1].y) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
                 Trackpoint p2 = trackpoints[0];
                 if (p != trackpoints[trackpoints.Count - 1])
                 {
@@ -100,49 +99,85 @@ namespace DriveToSurvive
                         }
                     }
                 }
-                e.Graphics.DrawLine(pen, (float)((p.x - cars[player1].x) / scale) + Width / 2, (float)((p.y - cars[player1].y) / scale) + Height / 2, (float)((p.x - cars[player1].x + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (float)((p.y - cars[player1].y + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
-                Point point1 = new Point((int)((p.x - cars[player1].x + Math.Sin((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cars[player1].y + Math.Cos((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
-                Point point2 = new Point((int)((p.x - cars[player1].x + Math.Sin((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cars[player1].y + Math.Cos((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
-                Point point3 = new Point((int)((p2.x - cars[player1].x + Math.Sin((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cars[player1].y + Math.Cos((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
-                Point point4 = new Point((int)((p2.x - cars[player1].x + Math.Sin((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cars[player1].y + Math.Cos((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
+                Point point1 = new Point((int)((p.x - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point2 = new Point((int)((p2.x - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
+                Point point3 = new Point((int)((p2.x - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * 11 * p2.size / 20) / scale) + Width / 2, (int)((p2.y - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * 11 * p2.size / 20) / scale) + Height / 2);
+                Point point4 = new Point((int)((p.x - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * 11 * p.size / 20) / scale) + Width / 2, (int)((p.y - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * 11 * p.size / 20) / scale) + Height / 2);
+
+                Point point5 = new Point((int)((p.x - cameraX + Math.Sin((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cameraY + Math.Cos((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point6 = new Point((int)((p2.x - cameraX + Math.Sin((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cameraY + Math.Cos((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
+                Point point7 = new Point((int)((p2.x - cameraX + Math.Sin((p.direction + 90) * Math.PI / 180) * 11 * p2.size / 20) / scale) + Width / 2, (int)((p2.y - cameraY + Math.Cos((p.direction + 90) * Math.PI / 180) * 11 * p2.size / 20) / scale) + Height / 2);
+                Point point8 = new Point((int)((p.x - cameraX + Math.Sin((p.direction + 90) * Math.PI / 180) * 11 * p.size / 20) / scale) + Width / 2, (int)((p.y - cameraY + Math.Cos((p.direction + 90) * Math.PI / 180) * 11 * p.size / 20) / scale) + Height / 2);
+
+                Point[] points1 = { point1, point2, point3, point4 };
+                Point[] points2 = { point5, point6, point7, point8 };
+
+                e.Graphics.FillPolygon(trackEdge, points1);
+                e.Graphics.FillPolygon(trackEdge, points2);
+
+                //double edgeLength = Form1.GetDistance(p2.x - p.x, p2.y - p2.y);
+                //double edgeWidth = (p.size + p2.size) / 30;
+                //Point location = new Point((int)(((p.x + p2.x) / 2 - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)(((p.y + p2.y) / 2 - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+
+                //e.Graphics.TranslateTransform(location.X, location.Y);
+                //e.Graphics.RotateTransform((float)(Form1.GetDirection(p2.x - p.x, p2.y - p.y)));
+                //e.Graphics.DrawImage(Properties.Resources.Edge2, location.X, location.Y, (float)edgeLength, (float)edgeWidth);
+                //e.Graphics.ResetTransform();
+
+                e.Graphics.DrawImage(Properties.Resources.Edge, (float)((p.x - cameraX - 11 * p.size / 20) / scale) + Width / 2, (float)((p.y - cameraY - 11 * p.size / 20) / scale) + Height / 2, (float)((p.size + p.size / 10) / scale), (float)((p.size + p.size / 10) / scale));
+            }
+            foreach (Trackpoint p in trackpoints)
+            {
+                e.Graphics.FillEllipse(trackColour, (float)((p.x - p.size / 2 - cameraX) / scale) + Width / 2, (float)((p.y - p.size / 2 - cameraY) / scale) + Height / 2, (float)(p.size / scale), (float)(p.size / scale));
+                Trackpoint p2 = trackpoints[0];
+                if (p != trackpoints[trackpoints.Count - 1])
+                {
+                    for (int i = 0; i < trackpoints.Count; i++)
+                    {
+                        if (p == trackpoints[i])
+                        {
+                            p2 = trackpoints[i + 1];
+                        }
+                    }
+                }
+                //e.Graphics.DrawLine(pen, (float)((p.x - cameraX) / scale) + Width / 2, (float)((p.y - cameraY) / scale) + Height / 2, (float)((p.x - cameraX + Math.Sin(p.direction * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (float)((p.y - cameraY + Math.Cos(p.direction * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point1 = new Point((int)((p.x - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point2 = new Point((int)((p.x - cameraX + Math.Sin((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Width / 2, (int)((p.y - cameraY + Math.Cos((p.direction + 90) * Math.PI / 180) * p.size / 2) / scale) + Height / 2);
+                Point point3 = new Point((int)((p2.x - cameraX + Math.Sin((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cameraY + Math.Cos((p.direction + 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
+                Point point4 = new Point((int)((p2.x - cameraX + Math.Sin((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Width / 2, (int)((p2.y - cameraY + Math.Cos((p.direction - 90) * Math.PI / 180) * p2.size / 2) / scale) + Height / 2);
                 Point[] points = { point1, point2, point3, point4 };
                 e.Graphics.FillPolygon(trackColour, points);
             }
             foreach (Trackpoint p in trackpoints)
             {
-                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, (float)((p.x - cars[player1].x) / scale) + Width / 2, (float)((p.y - cars[player1].y - 10) / scale) + Height / 2);
+                e.Graphics.DrawString($"{p.pointNumber}", gameFont, brush, (float)((p.x - cameraX) / scale) + Width / 2, (float)((p.y - cameraY - 10) / scale) + Height / 2);
             }
 
             foreach (Car c in cars)
             {
                 // Player labels
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Center;
-                stringFormat.LineAlignment = StringAlignment.Far;
+                StringFormat stringFormat = new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Far
+                };
                 playerBrush.Color = c.playerColour;
                 playerPen.Color = c.playerColour;
                 playerPen.Width = Math.Abs(circle) / (float)(2 * scale);
                 if (elevation < 30)
                 {
-                    e.Graphics.DrawEllipse(playerPen, (float)((c.x - cars[player1].x - (20 + Math.Abs(circle) / 4)) / scale) + Width / 2, (float)((c.y - cars[player1].y - (20 + Math.Abs(circle) / 4)) / scale) + Height / 2, (float)((40 + Math.Abs(circle) / 2) / scale), (float)((40 + Math.Abs(circle) / 2) / scale));
+                    e.Graphics.DrawEllipse(playerPen, (float)((c.x - cameraX - (20 + Math.Abs(circle) / 4)) / scale) + Width / 2, (float)((c.y - cameraY - (20 + Math.Abs(circle) / 4)) / scale) + Height / 2, (float)((40 + Math.Abs(circle) / 2) / scale), (float)((40 + Math.Abs(circle) / 2) / scale));
                 }
-                e.Graphics.DrawString($"{c.playerName} {c.targetLocation}", gameFont, playerBrush, (float)((c.x - cars[player1].x) / scale) + Width / 2, (float)((c.y - cars[player1].y - 30) / scale) + Height / 2, stringFormat);
+                e.Graphics.DrawString($"{c.playerName}", gameFont, playerBrush, (float)((c.x - cameraX) / scale) + Width / 2, (float)((c.y - cameraY - 30) / scale) + Height / 2, stringFormat);
 
-                if (c == cars[player1])
-                {
-                    e.Graphics.TranslateTransform(Width / 2, Height / 2);
-                }
-                else
-                {
-                    e.Graphics.TranslateTransform((float)((c.x - cars[player1].x) / scale) + Width / 2, (float)((c.y - cars[player1].y) / scale) + Height / 2);
-                }
+                e.Graphics.TranslateTransform((float)((c.x - cameraX) / scale) + Width / 2, (float)((c.y - cameraY) / scale) + Height / 2);
                 e.Graphics.RotateTransform((float)c.direction);
                 e.Graphics.DrawImage(c.image, (float)(0 - c.width / 2 / scale), (float)(0 - c.height / 2 / scale), (float)(c.width / scale), (float)(c.height / scale));
                 e.Graphics.ResetTransform();
 
                 //if (trackpoints.Count > 0)
                 //{
-                //    //e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x - cars[player1].x) / scale) + Width / 2, (float)((trackpoints[c.trackLocation].y - cars[player1].y) / scale) + Height / 2); // Draws line to nearest point on track
+                //    //e.Graphics.DrawLine(pen, Width / 2, Height / 2, (float)((trackpoints[c.trackLocation].x - cameraX) / scale) + Width / 2, (float)((trackpoints[c.trackLocation].y - cameraY) / scale) + Height / 2); // Draws line to nearest point on track
                 //    e.Graphics.DrawString($"{c.trackLocation}", gameFont, brush, 50, 75);
                 //    e.Graphics.DrawString($"{c.distToTrack}", gameFont, brush, 50, 100);
                 //}

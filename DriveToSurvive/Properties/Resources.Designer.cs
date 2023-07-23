@@ -113,6 +113,16 @@ namespace DriveToSurvive.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edge2 {
+            get {
+                object obj = ResourceManager.GetObject("Edge2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap greenCar {
             get {
                 object obj = ResourceManager.GetObject("greenCar", resourceCulture);

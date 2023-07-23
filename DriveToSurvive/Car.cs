@@ -188,7 +188,7 @@ namespace DriveToSurvive
             double distance;
             for (int i = 0; i < GameScreen.trackpoints.Count; i++)
             {
-                distance = Math.Sqrt(((GameScreen.trackpoints[i].x - x) * (GameScreen.trackpoints[i].x - x)) + ((GameScreen.trackpoints[i].y - y) * (GameScreen.trackpoints[i].y - y)));
+                distance = Form1.GetDistance(GameScreen.trackpoints[i].x - x, GameScreen.trackpoints[i].y - y);
                 if (distance < distToTrack || distToTrack == 0)
                 {
                     distToTrack = (int)distance;
@@ -307,12 +307,14 @@ namespace DriveToSurvive
         {
             foreach (Car c in GameScreen.cars)
             {
-                if (Math.Sqrt(Math.Pow(c.x - x, 2) + Math.Pow(c.y - y, 2)) < 80 && c != this)
+                if (Form1.GetDistance(c.x - x, c.y - y) < 60 && c != this)
                 {
                     c.speed /= 2;
                     speed /= 2;
-                    c.x += c.x - x;
-                    c.y += c.y - y;
+                    c.x += (c.x - x) / 2;
+                    c.y += (c.y - y) / 2;
+                    x += (x - c.x) / 2;
+                    y += (y - c.y) / 2;
                 }
             }
         }
