@@ -98,5 +98,13 @@ namespace DriveToSurvive
                 return direction;
             }
         }
+        public static double GetDistance(int x, int y)
+        {
+            return Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+        }
+        public static double GetDistance(double x, double y)
+        {
+            return Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+        }
     }
 }
